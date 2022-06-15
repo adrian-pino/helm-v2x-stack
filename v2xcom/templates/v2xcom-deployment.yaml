@@ -18,8 +18,8 @@ spec:
         k8s.v1.cni.cncf.io/networks: |
           [
             {
-              "name": {{.Values.v2xcom.networkAttachmentDefinitionName}}, 
-              "interface": {{.Values.v2xcom.interfaceName}},
+              "name": {{.Values.v2xcom.networkAttachmentDefinition}}, 
+              "interface": {{.Values.v2xcom.interface}},
               "namespace": {{.Values.namespace}},
               "ips": [{{.Values.v2xcom.ip}}]
             }
