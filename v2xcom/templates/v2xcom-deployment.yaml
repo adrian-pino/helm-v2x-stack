@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.v2xcom.name}}
+  namespace: {{.Values.namespace}}
+  labels:
+    app: {{.Values.v2xcom.name}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{.Values.v2xcom.name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.v2xcom.name}}
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [
+            {
+              "name": {{.Values.v2xcom.networkAttachmentDefinitionName}}, 
+              "interface": {{.Values.v2xcom.interfaceName}},
+              "namespace": {{.Values.namespace}},
+              "ips": [{{.Values.v2xcom.ip}}]
+            }
+          ]
+    spec:
+      containers:
+      - name: {{.Values.v2xcom.name}}
+        image: {{.Values.v2xcom.image}}:{{.Values.v2xcom.tag}}
+        imagePullPolicy: Never
+        command: ["/btp-geonet"]
+        args: 
+          [
+            "-p",
+            "static",
+            "--mqtt-host",
+            "mqtt-broker-svc",
+            "-i",
+            "eth1",
+            "--instance",
+            "RSU_11p-1",
+            "--security",
+            "none",
+        ]
+      initContainers:
+      - name: {{.Values.v2xcom.name}}-init-mqtt-broker-svc
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup mqtt-broker-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mqtt-broker-svc; sleep 2; done"]
+      restartPolicy: Always
+      nodeName: {{.Values.nodeName}}
+

@@ -1,0 +1,14 @@
+# Node that will host the workloads
+nodeName: "sna-k8s" 
+
+# Namespace
+namespace: "helm-v2x-stack"
+
+#V2X Forwarder values
+v2xcom:
+        name: "v2xcom1rsu"
+        image: "docker.io/library/v2x-forwarder"
+        tag: "latest"
+        networkAttachmentDefinitionName: "macvlan-static-conf-vlan-31"
+        interfaceName: "eth1"
+        ip: "192.168.31.5/32"
