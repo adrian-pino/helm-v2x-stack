@@ -7,8 +7,17 @@ namespace: "helm-v2x-stack"
 #V2X Com values
 v2xcom:
         name: "v2xcom1rsu"
-        image: "docker.io/library/v2x-forwarder"
+        labelTier: "far-edge"
+        labelRsu: "rsu"
+        image: "docker.io/library/v2xcom"
         tag: "latest"
         networkAttachmentDefinition: "macvlan-static-conf-vlan-31"
         interface: "eth1"
         ip: "192.168.31.5/32"
+        rsuName: "RSU_11p-1"
+        security: "none"
+
+#MQTT Broker values
+mqttbroker:
+        service: "mqtt-broker-svc"
+

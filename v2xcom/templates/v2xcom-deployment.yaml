@@ -5,6 +5,8 @@ metadata:
   namespace: {{.Values.namespace}}
   labels:
     app: {{.Values.v2xcom.name}}
+    tier: {{.Values.v2xcom.labelTier}}
+    rsu: {{.Values.v2xcom.labelRsu}}
 spec:
   replicas: 1
   selector:
@@ -35,18 +37,18 @@ spec:
             "-p",
             "static",
             "--mqtt-host",
-            "mqtt-broker-svc",
+            "{{.Values.mqttbroker.service}}",
             "-i",
-            "eth1",
+            "{{.Values.v2xcom.interface}}",
             "--instance",
-            "RSU_11p-1",
+            "{{.Values.v2xcom.rsuName}}",
             "--security",
-            "none",
+            "{{.Values.v2xcom.security}}"
         ]
       initContainers:
       - name: {{.Values.v2xcom.name}}-init-mqtt-broker-svc
         image: busybox:1.28
-        command: ['sh', '-c', "until nslookup mqtt-broker-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mqtt-broker-svc; sleep 2; done"]
+        command: ['sh', '-c', "until nslookup {{.Values.mqttbroker.service}}.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for {{.Values.mqttbroker.service}}; sleep 2; done"]
       restartPolicy: Always
       nodeName: {{.Values.nodeName}}
 
