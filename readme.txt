@@ -8,8 +8,6 @@ Repo structure:
 │   ├── readme.txt
 │   ├── templates
 │   │   ├── _helpers.tpl
-│   │   ├── generic-configmap.yaml
-│   │   ├── generic-secret.yaml
 │   │   ├── mqtt-deployment.yaml
 │   │   └── mqtt-service.yaml
 │   └── values.yaml
@@ -19,8 +17,6 @@ Repo structure:
     ├── readme.txt
     ├── templates
     │   ├── _helpers.tpl
-    │   ├── generic-configmap.yaml
-    │   ├── generic-secret.yaml
     │   └── v2xcom-deployment.yaml
     └── values.yaml
 
