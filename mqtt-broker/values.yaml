@@ -4,7 +4,7 @@ nodeName: "sna-k8s"
 # Namespace
 namespace: "helm-v2x-stack"
 
-#MQTT
+# MQTT
 name: "mqtt-broker"
 image: "eclipse-mosquitto"
 tag: "1.5"

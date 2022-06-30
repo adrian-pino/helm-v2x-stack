@@ -1,56 +1,56 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{.Values.v2xcom.name}}
+  name: {{.Values.name}}
   namespace: {{.Values.namespace}}
   labels:
-    app: {{.Values.v2xcom.name}}
-    tier: {{.Values.v2xcom.labelTier}}
-    rsu: {{.Values.v2xcom.labelRsu}}
+    app: {{.Values.name}}
+    tier: {{.Values.labelTier}}
+    rsu: {{.Values.labelRsu}}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{.Values.v2xcom.name}}
+      app: {{.Values.name}}
   template:
     metadata:
       labels:
-        app: {{.Values.v2xcom.name}}
+        app: {{.Values.name}}
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [
             {
-              "name": "{{.Values.v2xcom.networkAttachmentDefinition}}", 
-              "interface": "{{.Values.v2xcom.interface}}",
+              "name": "{{.Values.networkAttachmentDefinition}}", 
+              "interface": "{{.Values.interface}}",
               "namespace": "{{.Values.namespace}}",
-              "ips": ["{{.Values.v2xcom.ip}}"]
+              "ips": ["{{.Values.ip}}"]
             }
           ]
     spec:
       containers:
-      - name: {{.Values.v2xcom.name}}
-        image: {{.Values.v2xcom.image}}:{{.Values.v2xcom.tag}}
+      - name: {{.Values.name}}
+        image: {{.Values.image}}:{{.Values.tag}}
         imagePullPolicy: Never
         ports:
-        - containerPort: {{.Values.v2xcom.port}}
-        command: ["{{.Values.v2xcom.command}}"]
+        - containerPort: {{.Values.port}}
+        command: ["{{.Values.command}}"]
         args: 
           [
             "-p",
             "static",
             "--mqtt-host",
-            "{{.Values.mqttbroker.service}}",
+            "{{.Values.mqttbrokerService}}",
             "-i",
-            "{{.Values.v2xcom.interface}}",
+            "{{.Values.interface}}",
             "--instance",
-            "{{.Values.v2xcom.rsuName}}",
+            "{{.Values.rsuName}}",
             "--security",
-            "{{.Values.v2xcom.security}}"
+            "{{.Values.security}}"
         ]
       initContainers:
-      - name: {{.Values.v2xcom.name}}-init-mqtt-broker-svc
+      - name: {{.Values.name}}-init-mqtt-broker-svc
         image: busybox:1.28
-        command: ['sh', '-c', "until nslookup {{.Values.mqttbroker.service}}.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for {{.Values.mqttbroker.service}}; sleep 2; done"]
+        command: ['sh', '-c', "until nslookup {{.Values.mqttbrokerService}}.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for {{.Values.mqttbrokerService}}; sleep 2; done"]
       restartPolicy: Always
       nodeName: {{.Values.nodeName}}
 
