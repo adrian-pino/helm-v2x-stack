@@ -1,10 +1,10 @@
-# V2X Helm Charts & ChartMuseum
-Repository which containts two helm charts: mqtt broker & v2xcom.
+# V2X Helm Charts & Local Helm Chart Repo (ChartMuseum)
+Repository containing the two Helm Charts that form the V2X Stack: MQTT Broker & V2XCom. The V2X Stack contains a MQTT Broker and as many V2XCom as necessary. This can be achieved running the V2XCom Helm Chart with different configurations specifying info such as "RSU-id", "IP", "VLAN tag", etc. 
 
 ## Lead developers
 - Adrian Pino  Martínez (adrian.pino@i2cat.net)
 
-##Repo structure
+## Repo structure
 ```
 .
 ├── mqtt-broker
