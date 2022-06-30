@@ -4,21 +4,22 @@ nodeName: "sna-k8s"
 # Namespace
 namespace: "helm-v2x-stack"
 
-#V2X Com values
+# V2X Com values
 v2xcom:
         name: "v2xcom1rsu"
         labelTier: "far-edge"
         labelRsu: "rsu"
-        image: "docker.io/library/pledger/v2xcom"
+        image: "docker.io/pledger/v2xcom"
         tag: "1.0"
         port: "2395"
-        networkAttachmentDefinition: "macvlan-static-conf-vlan-31"
+        networkAttachmentDefinition: "macvlan-static-conf-vlan-2111-sna-k8s"
         interface: "eth1"
         ip: "192.168.31.5/32"
+        command: "/rsu"
         rsuName: "RSU_11p-1"
         security: "none"
 
-#MQTT Broker values
+# MQTT Broker values (should match with the ones defined in the MQTT broker Helm Chart)
 mqttbroker:
         service: "mqtt-broker-svc"
 

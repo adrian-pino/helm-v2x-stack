@@ -20,10 +20,10 @@ spec:
         k8s.v1.cni.cncf.io/networks: |
           [
             {
-              "name": {{.Values.v2xcom.networkAttachmentDefinition}}, 
-              "interface": {{.Values.v2xcom.interface}},
-              "namespace": {{.Values.namespace}},
-              "ips": [{{.Values.v2xcom.ip}}]
+              "name": "{{.Values.v2xcom.networkAttachmentDefinition}}", 
+              "interface": "{{.Values.v2xcom.interface}}",
+              "namespace": "{{.Values.namespace}}",
+              "ips": ["{{.Values.v2xcom.ip}}"]
             }
           ]
     spec:
@@ -33,7 +33,7 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: {{.Values.v2xcom.port}}
-        command: ["/btp-geonet"]
+        command: ["{{.Values.v2xcom.command}}"]
         args: 
           [
             "-p",
