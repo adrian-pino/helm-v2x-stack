@@ -1,8 +1,32 @@
-# Helm Charts & ChartMuseum. Basic usage
-## Repository which containts two helm charts: mqtt broker & v2xcom. Below there are list the necessary commands to push Helm Charts to a local helm chart repo (ChartMuseum) in order to use it with OSM.
+# V2X Helm Charts & ChartMuseum
+Repository which containts two helm charts: mqtt broker & v2xcom.
 
 ## Lead developers
 - Adrian Pino  Martínez (adrian.pino@i2cat.net)
+
+##Repo structure
+```
+.
+├── mqtt-broker
+│   ├── Chart.yaml
+│   ├── charts
+│   ├── readme.txt
+│   ├── templates
+│   │   ├── _helpers.tpl
+│   │   ├── mqtt-deployment.yaml
+│   │   └── mqtt-service.yaml
+│   └── values.yaml
+└── v2xcom
+    ├── Chart.yaml
+    ├── charts
+    ├── readme.txt
+    ├── templates
+    │   ├── _helpers.tpl
+    │   └── v2xcom-deployment.yaml
+    └── values.yaml
+```
+
+Below there are list the necessary commands to push Helm Charts to a local helm chart repo (ChartMuseum) in order to use it with OSM.
 
 ## Launch Chart museum
 ```
@@ -14,7 +38,8 @@ chartmuseum --debug --port=8080   --storage="local"   --storage-local-rootdir=".
 helm package .
 ```
 
- Atm we're able to push our helm-chart to the repository
+At this very moment we're able to push our helm-charts to chart museum.
+
 ## Push Helm Chart to the repo
 ```
 curl --data-binary "@./mqtt-broker/mqtt-broker-0.1.0.tgz" http://192.168.123.38:8080/api/charts
@@ -41,23 +66,3 @@ curl -X DELETE http://192.168.123.38:8080/api/charts/v2xcom/0.1.0
 ```
 kubectl -n osm exec -it <LCM pod> -- sh -c "helm repo update"
 ```
-
-##Repo structure
-.
-├── mqtt-broker
-│   ├── Chart.yaml
-│   ├── charts
-│   ├── readme.txt
-│   ├── templates
-│   │   ├── _helpers.tpl
-│   │   ├── mqtt-deployment.yaml
-│   │   └── mqtt-service.yaml
-│   └── values.yaml
-└── v2xcom
-    ├── Chart.yaml
-    ├── charts
-    ├── readme.txt
-    ├── templates
-    │   ├── _helpers.tpl
-    │   └── v2xcom-deployment.yaml
-    └── values.yaml
