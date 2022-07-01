@@ -18,7 +18,15 @@ spec:
       containers:
       - name: {{.Values.name}}
         image: {{.Values.image}}:{{.Values.tag}}
+        imagePullPolicy: {{.Values.imagePullPolicy}}
         ports:
         - containerPort: {{.Values.port}}
+        resources:
+          requests:
+            memory: "{{.Values.requestMemory}}"
+            cpu: "{{.Values.requestCPU}}"
+          limits:
+            memory: "{{.Values.limitsMemory}}"
+            cpu: "{{.Values.limitsCPU}}"
       restartPolicy: Always
       nodeName: {{.Values.nodeName}}

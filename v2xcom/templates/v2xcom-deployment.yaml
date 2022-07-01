@@ -20,7 +20,7 @@ spec:
         k8s.v1.cni.cncf.io/networks: |
           [
             {
-              "name": "{{.Values.networkAttachmentDefinition}}", 
+              "name": "{{.Values.networkAttachmentDefinition}}",
               "interface": "{{.Values.interface}}",
               "namespace": "{{.Values.namespace}}",
               "ips": ["{{.Values.ip}}"]
@@ -30,11 +30,11 @@ spec:
       containers:
       - name: {{.Values.name}}
         image: {{.Values.image}}:{{.Values.tag}}
-        imagePullPolicy: Never
+        imagePullPolicy: {{.Values.imagePullPolicy}}
         ports:
         - containerPort: {{.Values.port}}
         command: ["{{.Values.command}}"]
-        args: 
+        args:
           [
             "-p",
             "static",
@@ -47,10 +47,16 @@ spec:
             "--security",
             "{{.Values.security}}"
         ]
+        resources:
+            requests:
+              memory: "{{.Values.requestMemory}}"
+              cpu: "{{.Values.requestCPU}}"
+            limits:
+              memory: "{{.Values.limitsMemory}}"
+              cpu: "{{.Values.limitsCPU}}"
       initContainers:
       - name: {{.Values.name}}-init-mqtt-broker-svc
         image: busybox:1.28
         command: ['sh', '-c', "until nslookup {{.Values.mqttbrokerService}}.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for {{.Values.mqttbrokerService}}; sleep 2; done"]
       restartPolicy: Always
       nodeName: {{.Values.nodeName}}
-
