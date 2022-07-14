@@ -29,4 +29,6 @@ spec:
             memory: "{{.Values.limitsMemory}}"
             cpu: "{{.Values.limitsCPU}}"
       restartPolicy: Always
-      nodeName: {{.Values.nodeName}}
+      nodeSelector:
+          tier: {{.Values.labelNodeSelectorTier}}
+          rsu: {{.Values.labelNodeSelectorRsu}}

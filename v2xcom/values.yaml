@@ -1,13 +1,10 @@
-# Node that will host the workloads
-nodeName: "sna-k8s"
-
 # Namespace
 namespace: "helm-v2x-stack"
 
 # V2X Com values
 name: "v2xcom1rsu"
-labelTier: "far-edge"
-labelRsu: "rsu"
+labelNodeSelectorTier: "none"
+labelNodeSelectorRsu: "none"
 image: "docker.io/pledger/v2xcom"
 tag: "1.0"
 imagePullPolicy: "Never"
