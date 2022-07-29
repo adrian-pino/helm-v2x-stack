@@ -1,10 +1,11 @@
+# Node that will host the workloads
+nodeName: "sna-k8s"
+
 # Namespace
 namespace: "helm-v2x-stack"
 
 # MQTT
 name: "mqtt-broker"
-labelNodeSelectorTier: "none"
-labelNodeSelectorRsu: "none"
 image: "eclipse-mosquitto"
 tag: "1.5"
 imagePullPolicy: "Always"

@@ -5,6 +5,8 @@ metadata:
   namespace: {{.Values.namespace}}
   labels:
     app: {{.Values.name}}
+    tier: {{.Values.labelTier}}
+    rsu: {{.Values.labelRsu}}
 spec:
   replicas: 1
   selector:
@@ -57,6 +59,4 @@ spec:
         image: busybox:1.28
         command: ['sh', '-c', "until nslookup {{.Values.mqttbrokerService}}.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for {{.Values.mqttbrokerService}}; sleep 2; done"]
       restartPolicy: Always
-      nodeSelector:
-          tier: {{.Values.labelNodeSelectorTier}}
-          rsu: {{.Values.labelNodeSelectorRsu}}
+      nodeName: {{.Values.nodeName}}

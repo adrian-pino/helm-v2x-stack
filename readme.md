@@ -65,7 +65,4 @@ curl -X DELETE http://192.168.123.38:8080/api/charts/v2xcom/0.1.0
 ## Now update the repos inside OSM's LCM pod
 ```
 kubectl -n osm exec -it <LCM pod> -- sh -c "helm repo update"
-
-#Example:
-kubectl -n osm exec -it lcm-864ccc87c6-wn6wv -- sh -c "helm repo update"
 ```
