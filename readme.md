@@ -1,4 +1,4 @@
-# V2X Helm Charts & Local Helm Chart Repo (ChartMuseum)
+# Helm Charts Implementing the V2X Stack
 Repository containing the two Helm Charts that form the V2X Stack: MQTT Broker & V2XCom. The V2X Stack contains a MQTT Broker and as many V2XCom as necessary. This can be achieved running the V2XCom Helm Chart with different configurations specifying info such as "RSU-id", "IP", "VLAN tag", etc. 
 
 ## Lead developers
@@ -23,6 +23,7 @@ Repository containing the two Helm Charts that form the V2X Stack: MQTT Broker &
     ├── templates
     │   ├── _helpers.tpl
     │   └── v2xcom-deployment.yaml
+    │   └── network-attachment-definition.yaml
     └── values.yaml
 ```
 
