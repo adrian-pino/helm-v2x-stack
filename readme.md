@@ -62,7 +62,7 @@ curl -X DELETE http://192.168.123.38:8080/api/charts/mqtt-broker/0.1.0
 curl -X DELETE http://192.168.123.38:8080/api/charts/v2xcom/0.1.0
 ```
 
-## In scenarios using ETSI OSMntegration with OSM
+## In scenarios using ETSI OSM to instantiate CNFs (NFV Environments)
 If a chart gets updated, the OSM's LCM pod should update its helm repositories to catch the later updates.
 ```
 kubectl -n osm exec -it <LCM pod> -- sh -c "helm repo update"
