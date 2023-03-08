@@ -9,7 +9,6 @@ Repository containing the two Helm Charts that form the V2X Stack: MQTT Broker &
 .
 ├── mqtt-broker
 │   ├── Chart.yaml
-│   ├── charts
 │   ├── readme.txt
 │   ├── templates
 │   │   ├── mqtt-deployment.yaml
@@ -17,7 +16,6 @@ Repository containing the two Helm Charts that form the V2X Stack: MQTT Broker &
 │   └── values.yaml
 └── v2xcom
     ├── Chart.yaml
-    ├── charts
     ├── readme.txt
     ├── templates
     │   └── v2xcom-deployment.yaml
