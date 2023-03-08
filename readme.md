@@ -33,36 +33,35 @@ Below there are list the necessary commands to push Helm Charts to a local helm 
 chartmuseum --debug --port=8080   --storage="local"   --storage-local-rootdir="./chartstorage"
 ```
 
-## Package the Helm Chart (.tgz format)
+## Package a Helm Chart (.tgz format)
 ```
 helm package .
 ```
 
-At this very moment we're able to push our helm-charts to chart museum.
-
-## Push Helm Chart to the repo
+## Upload a Helm Chart
 ```
 curl --data-binary "@./mqtt-broker/mqtt-broker-0.1.0.tgz" http://192.168.123.38:8080/api/charts
 curl --data-binary "@./v2xcom/v2xcom-0.1.0.tgz" http://192.168.123.38:8080/api/charts
 ```
 
-## Check that the helm chart has been added to chart museum
+## Helm Chart upload validation
+To check that the helm chart has been added to chart museum:
 ```
 cat ~/helm/chartstorage/index-cache.yaml
 ```
 
-## Also we could get the Helm Charts uploaded to the repo via curl
+We could check it directly reaching the ChartMuseum instance
 ```
 curl  http://192.168.123.38:8080/api/charts | jq
 ```
 
-## To delete a helm-chart from chart museum
+## Delete a Helm  Chart
 ```
 curl -X DELETE http://192.168.123.38:8080/api/charts/mqtt-broker/0.1.0
 curl -X DELETE http://192.168.123.38:8080/api/charts/v2xcom/0.1.0
 ```
 
-## In scenarios using ETSI OSM to instantiate CNFs (NFV Environments)
+## ETSI OSM Integration. NFV Environments. CNF instantiation.
 If a chart gets updated, the OSM's LCM pod should update its helm repositories to catch the later updates.
 ```
 kubectl -n osm exec -it <LCM pod> -- sh -c "helm repo update"
