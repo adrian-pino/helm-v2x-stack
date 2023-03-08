@@ -18,10 +18,9 @@ limitsMemory: "7Mi"
 limitsCPU: "300m"
 networkAttachmentDefinition: "macvlan-static-conf-vlan-2111-sna-k8s"
 interface: "eth1"
-ip: "192.168.31.5/32"
 command: "/rsu"
-rsuName: "RSU_11p-1"
+instanceName: "RSU_11p-1"
 security: "none"
 
 # MQTT Broker values (should match with the ones defined in the MQTT broker Helm Chart)
-mqttbrokerService: "mqtt-broker-svc"
+mqttBrokerService: "mqtt-broker-svc"

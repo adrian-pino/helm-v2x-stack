@@ -22,8 +22,7 @@ spec:
             {
               "name": "{{.Values.networkAttachmentDefinition}}",
               "interface": "{{.Values.interface}}",
-              "namespace": "{{.Values.namespace}}",
-              "ips": ["{{.Values.ip}}"]
+              "namespace": "{{.Values.namespace}}"
             }
           ]
     spec:
@@ -39,11 +38,11 @@ spec:
             "-p",
             "static",
             "--mqtt-host",
-            "{{.Values.mqttbrokerService}}",
+            "{{.Values.mqttBrokerService}}",
             "-i",
             "{{.Values.interface}}",
             "--instance",
-            "{{.Values.rsuName}}",
+            "{{.Values.instanceName}}",
             "--security",
             "{{.Values.security}}"
         ]
@@ -57,6 +56,13 @@ spec:
       initContainers:
       - name: {{.Values.name}}-init-mqtt-broker-svc
         image: busybox:1.28
-        command: ['sh', '-c', "until nslookup {{.Values.mqttbrokerService}}.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for {{.Values.mqttbrokerService}}; sleep 2; done"]
+        command: ['sh', '-c', "until nslookup {{.Values.mqttBrokerService}}.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for {{.Values.mqttBrokerService}}; sleep 2; done"]
+        resources:
+            requests:
+              memory: "50Mi"
+              cpu: "50m"
+            limits:
+              memory: "50Mi"
+              cpu: "50m"
       restartPolicy: Always
       nodeName: {{.Values.nodeName}}
