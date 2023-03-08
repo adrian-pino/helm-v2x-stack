@@ -23,7 +23,6 @@ Repository containing the two Helm Charts that form the V2X Stack: MQTT Broker &
     ├── templates
     │   ├── _helpers.tpl
     │   └── v2xcom-deployment.yaml
-    │   └── network-attachment-definition.yaml
     └── values.yaml
 ```
 
@@ -63,7 +62,8 @@ curl -X DELETE http://192.168.123.38:8080/api/charts/mqtt-broker/0.1.0
 curl -X DELETE http://192.168.123.38:8080/api/charts/v2xcom/0.1.0
 ```
 
-## Now update the repos inside OSM's LCM pod
+## In scenarios using ETSI OSMntegration with OSM
+If a chart gets updated, the OSM's LCM pod should update its helm repositories to catch the later updates.
 ```
 kubectl -n osm exec -it <LCM pod> -- sh -c "helm repo update"
 ```
